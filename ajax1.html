@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>駅の路線を取得</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script>
+        $(function () {
+          $('#ajax_button').click(
+              function() {
+                  $.ajax({
+                    url:'http://www.ekidata.jp/api/p/23.json',
+                    type:'GET',
+                    dataType:'script',
+                    timeout:1000,
+                    success: function(data,dataType) {
+                        for (var i=0; i<10 ; i++) {
+                            var text_cd = xml.data["line"][i]["line_cd"]
+                            var text = xml.data["line"][i]["line_name"]
+                            document.write(i+1 + "番目の中身は" + text +"です。</br>")
+                            document.write("cdは" + text_cd +"です。</br></br>")
+                        }
+                    },
+                    error: function (XMLHttpRequest,textStatus,errorThrown) {
+                        alert("ng");
+                        console.log("ng",XMLHttpRequest,textStatus,errorThrown);
+                    }
+                });
+              }
+            );
+            
+          });
+        
+    </script>
+</head>
+<body>
+    <input type="button" id="ajax_button" value="push bottun">
+    <div id="text"></div>
+</body>
+</html>
